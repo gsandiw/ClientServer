@@ -1,0 +1,23 @@
+cs1653 Project, phase 2
+Feb. 11, 2010
+Yann Le Gall
+ylegall@gmail.com
+
+LINK filesharing-system compilation Instructions
+================================================
+
+1. create a directory for class files:
+mkdir bin
+
+2. compile the client, group server, and file server:
+javac -d bin -cp <path_to_bouncy-castle.jar> -g:none -sourcepath src src/tinboa/client/Client.java
+javac -d bin -cp <path_to_bouncy-castle.jar> -g:none -sourcepath src src/tinboa/server/GroupServer.java
+javac -d bin -cp <path_to_bouncy-castle.jar> -g:none -sourcepath src src/tinboa/fileserver/FileServer.java
+javac -d bin -cp <path_to_bouncy-castle.jar> -g:none -sourcepath src src/tinboa/ui/*.java
+
+3. start the client and servers, providing optional ports if desired:
+java -cp <path_to_bouncy-castle.jar>:bin tinboa.client.Client
+java -cp <path_to_bouncy-castle.jar>:bin tinboa.server.GroupServer 8765 
+java -cp <path_to_bouncy-castle.jar>:bin tinboa.fileserver.FileServer 4321
+java -cp <path_to_bouncy-castle.jar>:bin tinboa.ui.BaseUI
+

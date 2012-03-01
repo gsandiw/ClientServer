@@ -1,0 +1,81 @@
+cs1653 Project, phase 2
+Feb. 11, 2010
+Yann Le Gall
+ylegall@gmail.com
+
+LINK filesharing-system Usage Instructions
+==========================================
+
+1. Begin by running the client, group-server, and file-server.
+Change directory into the folder containing the class files. To
+run the group server, type "java -cp . tinboa.server.GroupServer".
+An optional port number may be passed as an argument to the group
+server: "java -cp bin tinboa.server.GroupServer 9876"
+
+To run the file server, type "java -cp . tinboa.fileserver.FileServer".
+An optional port number may be passed as an argument to the file
+server: "java -cp bin tinboa.fileserver.FileServer 4321".
+
+When the server starts it will try to open the group file and the user file. If it does not find them, it will create them and ask the user for the new Administrator username. After inputting the username, the server will connect.
+
+To run the client application, type "java -cp . tinboa.client.Client".
+
+2. Next, connect to the group server. At the command prompt of
+the client application, type: "login HOSTNAME PORT" where
+HOSTNAME is the name of the machine running the group server,
+and PORT is the port on which the server is listening.
+When prompted for a user name and password, enter "ylegall" for
+both. This temporary administrator has been added for testing
+and grading purposes. After successfully connecting, groups and
+users may be managed.
+
+3. To share files, connect to the file server by typing:
+"flogin HOSTNAME PORT" where HOSTNAME is the name of the machine
+running the group server, and PORT is the port on which the server
+is listening. Once successfully connected, upload and download files
+using the fsend and fget commands:
+
+fsend SRC.txt DST.txt group
+fget SRC.txt DST.txt
+
+where SRC is the full path to the file.
+DST will be the name of the file after it is transfered.
+
+On the FileServer, the files are stored in a hidden folder named ".filedata",
+whose parent directory is the directory in which the FileServer was launched.
+
+***********************************
+Important Note:
+To get the FileServer to run properly, it is necessary to manually transfer the group server key
+to the file server.  The group server's key is located in bin/tinboa/server/ the file name is
+*hostname*_publicKey.ser.  This key must be copied into bin/tinboa/fileserver/GroupServerKeys/ .
+The file name should be kept the same as when it was still on the group server.  The file server
+will not recognize any group server it does not have a public key for and will therefore consider
+the token to be invalid.
+***********************************
+
+4. For a complete list of supported commands, type "help" at the
+command line:
+
+ addmem USER GROUP      adds a user to a group.
+ adduser USER           creates a user.
+ delmem USER GROUP      removes a user from a group.
+ deluser USER           removes a user.
+ exit                   exit the system.
+ fdelete FILE           deletes FILE from the fileserver.
+ fget SRC DST           downloads file DST as SRC.
+ flogin HOSTNAME PORT   connects to a fileserver.
+ flogout                disconnects from a fileserver.
+ fsend SRC DST GRP      upload file SRC as DST in group GRP.
+ flist                  lists your files.
+ help                   displays this list of commands.
+ login HOSTNAME PORT    connects to the server at 'hostname'
+ logout                 disconnects from the groupserver.
+ lsgroup                lists groups.
+ lsmem GROUP            lists members of a group.
+ mkgroup GROUP          creates a group.
+ rmgroup GROUP          removes a group.
+ su [USER]              switches the current user
+
+5. To exit the client application, type "exit" and the servers may be
+shutdown via SIGINT (CTRL-C).
